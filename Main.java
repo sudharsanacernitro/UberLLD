@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.uberLLD.demo.servicesAbstraction.authAbstraction;
 import com.uberLLD.demo.servicesAbstraction.bookingInterface;
+import com.uberLLD.demo.servicesAbstraction.historyAbstraction;
 
 import com.uberLLD.demo.repo.customerRepo;
 import com.uberLLD.demo.repo.cabRepo;
@@ -127,9 +128,9 @@ class Main
 		booking.bookCab(source, destination , userId);
     }
 
-	public void showHistory()
+	public void showHistory(historyAbstraction history,int id)
 	{
-
+		history.getHistory(id);
 	}
 
 }

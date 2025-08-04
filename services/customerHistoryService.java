@@ -5,7 +5,10 @@ import java.util.List;
 import com.uberLLD.demo.models.historyModel;
 import com.uberLLD.demo.repo.historyRepo;
 
-public class customerHistoryService {
+import com.uberLLD.demo.servicesAbstraction.historyAbstraction;
+
+
+public class customerHistoryService implements historyAbstraction{
 
     historyRepo history;
 
@@ -14,7 +17,7 @@ public class customerHistoryService {
         this.history = history;
     }
 
-    public void getHistory(int customerId)
+    public void getHistory(int id)
     {
         List<historyModel> transactions = history.getRecords();
 
@@ -25,7 +28,7 @@ public class customerHistoryService {
 
         for(historyModel record : transactions)
         {
-            if(record.getCustomerId() == customerId)
+            if(record.getCustomerId() == id)
             {
                 System.out.println( record.getCabId()+" | "+record.getSource()+" | "+record.getDestination()+" | "+record.getCost());
                 System.out.println("----------------------------------");
