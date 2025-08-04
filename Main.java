@@ -68,9 +68,17 @@ class Main
         	
         	switch( option )
         	{
-        	case 1:
-        		book(booking);
-     
+        		case 1:
+					book(booking);
+					break;
+
+				case 2:
+
+					break;
+
+				default:
+					System.out.println("Select a valid choice");
+					break;
         	}
         	
     	}
@@ -92,7 +100,7 @@ class Main
 		
 		System.out.println("Enter Password");
 		String passWord = sc.next();
-    	
+
     	if(methode == 1)
     	{
     		userId = authService.login(userName, passWord);
@@ -118,4 +126,10 @@ class Main
 		
 		booking.bookCab(source, destination , userId);
     }
+
+	public void showHistory()
+	{
+
+	}
+
 }
