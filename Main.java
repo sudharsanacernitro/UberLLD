@@ -6,6 +6,8 @@ import com.uberLLD.demo.servicesAbstraction.authAbstraction;
 import com.uberLLD.demo.servicesAbstraction.bookingInterface;
 import com.uberLLD.demo.servicesAbstraction.historyAbstraction;
 
+import com.uberLLD.demo.servicesAbstraction.historyAbstraction;
+
 import com.uberLLD.demo.repo.customerRepo;
 import com.uberLLD.demo.repo.cabRepo;
 import com.uberLLD.demo.repo.historyRepo;
@@ -13,6 +15,9 @@ import com.uberLLD.demo.repo.historyRepo;
 
 import com.uberLLD.demo.services.customerAuth;
 import com.uberLLD.demo.services.cabAuth;
+
+import com.uberLLD.demo.services.cabHistoryService;
+import com.uberLLD.demo.services.customerHistoryService;
 
 import com.uberLLD.demo.services.bookingService;
 
@@ -23,7 +28,7 @@ class Main
 	static int userLoggedIn = -1;
 	static int userId = -1;
 	
-    public static void main()
+    public static void run()
     {
 		System.out.println("started");
     	
@@ -33,7 +38,13 @@ class Main
     	
     	customerAuth customerAuthenticationService = new customerAuth(cusRepo);
     	cabAuth cabAuthentication = new cabAuth(cabrepo);
+
+		cabHistoryService cabHistory = new cabHistoryService(history);
+		customerHistoryService customerHistory = new customerHistoryService(history);
+
     	bookingService booking = new bookingService(cabrepo , cusRepo , history);
+
+
     	
     	    	
     	// Authentication
@@ -63,7 +74,15 @@ class Main
     		System.out.println("Choose an option");
         	
         	if(role == 1)
-        	System.out.println("1. book a cab");
+			{
+				System.out.println("1. book a cab");
+				System.out.println("2. Show History");
+			}
+			else if(role == 2)
+			{
+				System.out.println("1. Show History");
+			}
+
         	
         	int option = sc.nextInt();
         	
@@ -75,6 +94,10 @@ class Main
 
 				case 2:
 
+					if(userLoggedIn == 2)
+						showHistory(cabHistory , userId);
+					else if(userLoggedIn == 1)
+						showHistory(customerHistory , userId);
 					break;
 
 				default:
@@ -128,7 +151,7 @@ class Main
 		booking.bookCab(source, destination , userId);
     }
 
-	public void showHistory(historyAbstraction history,int id)
+	public static void showHistory(historyAbstraction history,int id)
 	{
 		history.getHistory(id);
 	}
